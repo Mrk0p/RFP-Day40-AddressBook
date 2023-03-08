@@ -87,7 +87,7 @@ class AddressBook{
 let person = new AddressBook("Raj", "Varma", "Jsquare", "Ahemdabad", "Gujarat", "425082" , "91 8234152782", "rajvarma@gmail.com");
 console.log(person.toString());
 try{
-    person.firstName = "Jojo";
+    person.firstName = "Raj";
     console.log(person.firstName);
 }catch(e){
     console.error(e);
