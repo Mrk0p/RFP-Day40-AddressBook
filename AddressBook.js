@@ -64,6 +64,8 @@ class Contact {
 }
 
 const prompt = require("prompt-sync")({sigint:true}); 
+const addressbook = new Array();
+let contact = "";
 let first_name = getUserInput(prompt("Eter the first name : "), "^[A-Z][a-zA-Z]{2,}");
 let last_name = getUserInput(prompt("Enter the last name : "), "^[A-Z][a-zA-Z]{2,}");
 let address = getUserInput(prompt("Enter the address : "), "[a-zA-Z\w\d\s]{3,}");
@@ -93,3 +95,61 @@ function addContact() {
     console.log(addressbook.toString());
 }
 addContact();
+function editContact(searchByname) {
+    for(let i = 0; i < addressbook.length; i++) {
+        if(searchByname == addressbook[i].getFirst_name) {
+            let option2 = prompt("Edit 1. First name 2. Last name 3. Address 4. City 5. State 6. Zip code 7. Phone number 8. Email address ");
+            let value = prompt("Enter the data needs to be changed ");
+            switch(option2) {
+                case '1':
+                    addressbook[i].setFirst_name = value;
+                    break;
+                case '2':
+                    addressbook[i].setLast_name = value;
+                    break;
+                case '3':
+                    addressbook[i].setAddress = value;
+                    break;
+                case '4':
+                    addressbook[i].setCity = value;
+                    break;
+                case '5':
+                    addressbook[i].setState = value;
+                    break;
+                case '6':
+                    addressbook[i].setZip = value;
+                    break;
+                case '7':
+                    addressbook[i].setPhone_no = value;
+                    break;
+                case '8':
+                    addressbook[i].setEmail= value;
+                    break;
+                default:
+                    console.log("Invalid option");                
+            }
+        }
+    }
+}
+let searchByname = "";
+
+function menu() {
+let option1 = prompt("Menu: 1. Add Contact 2. Search By name and edit it 3. Exit ");
+switch (option1) {
+    case '1':
+        addContact();
+        menu();
+        break;
+    case '2':
+        searchByname = prompt("Enter the first name to search ");
+        editContact(searchByname);
+        menu();
+        break;
+    case '3':
+        break;    
+    default:
+        console.log("Invalid option");
+        menu();    
+    }
+}
+menu();
