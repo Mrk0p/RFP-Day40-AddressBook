@@ -87,4 +87,9 @@ function getUserInput(value, regexPattern) {
         getUserInput(value, regexPattern);
     }
 }
-createContact();
+function addContact() {
+    createContact();
+    addressbook.push(contact);
+    console.log(addressbook.toString());
+}
+addContact();
