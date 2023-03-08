@@ -1,181 +1,171 @@
-class Contact {
-    constructor(first_name, last_name, address, city, state, zip, phone_no, email) {
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.address = address;
-        this.city = city;
-        this.state = state;
-        this.zip = zip;
-        this.phone_no = phone_no;
-        this.email = email;   
+class AddressBook{
+    constructor(...parameters){
+        this.firstName = parameters[0];
+        this.lastName = parameters[1];
+        this.address = parameters[2];
+        this.city = parameters[3];
+        this.state = parameters[4];
+        this.zip = parameters[5];
+        this.phoneNumber = parameters[6];
+        this.email = parameters[7];
     }
-    get getFirs_name() {
-        return this.first_name;
-    }
-    set setFirst_name(first_name) {
-        this.first_name = first_name;
-    }
-    get getLast_name(){
-        return this.last_name;
-    }
-    set setLast_name(last_name) {
-        this.last_name = last_name;
-    }
-    get getAddress(){
-        return this.address;
-}
-    set setAddress(address) {
-        this.address = address;
-    }
-    get getCity(){
-        return this.city;
-    }
-    set setCity(city) {
-        this.city = city;
-    }
-    get getState(){
-        return this.state;
-    }
-    set setState(state) {
-        this.state = state;
-    }
-    get getZip(){
-        return this.zip;
-    }
-    set setZip(zip) {
-        this.zip = zip;
-    }
-    get getPhone_no(){
-        return this.phone_no;
-    }
-    set setPhone_no(phone_no) {
-        this.phone_no = phone_no;
-    }
-    get getEmail(){
-        return this.email;
-    }
-    set setEmail(email) {
-        this.email = email;
-    }
-    toString() {
-        return "First name : "+this.first_name+", Last name : "+this.last_name+", Address : "+this.address
-        +", City : "+this.city+", State : "+this.state+", ZIP : "+this.zip+"Phone number : "+this.phone_no+", Email : "+this.email;
-    }
-}
 
-const prompt = require("prompt-sync")({sigint:true}); 
-const addressbook = new Array();
-let contact = "";
-let createContact = () => {
-    let first_name = getUserInput(prompt("Eter the first name : "), "^[A-Z][a-zA-Z]{2,}");
-    let last_name = getUserInput(prompt("Enter the last name : "), "^[A-Z][a-zA-Z]{2,}");
-    let address = getUserInput(prompt("Enter the address : "), "[a-zA-Z\w\d\s]{3,}");
-    let city = getUserInput(prompt("Enter the city name : "), "[a-zA-Z\w\d\s]{3,}");
-    let state = getUserInput(prompt("Enter the state name : "), "[a-zA-Z\w\d\s]{3,}");
-    let zip = getUserInput(prompt("Enter the zip code : "), "[0-9]{6}");
-    let phone_no = getUserInput(prompt("Enter the phone number : "), "^(91)?([ ])?[6-9]{1}[0-9]{9}$");
-    let email = getUserInput(prompt("Enter the email address : "), "^[a-zA-Z0-9]+([._+-][a-zA-Z0-9]+)*@([a-z1-9]+)([.][a-z]*)?(\.[a-z]{2,})$");
-    contact = new Contact(first_name, last_name, address, city, state, zip, phone_no, email);
-}
-let getUserInput = (value, regexPattern) => {
-    let regex = RegExp(regexPattern);
-    if(regex.test(value)) {
-        return value;
+    get firstName(){ return this._firstName; }
+    set firstName(firstName){
+        let fNameRegExp = RegExp("^[A-Z]{1}[a-z]{2,}");
+        if(fNameRegExp.test(firstName))
+            this._firstName = firstName;
+        else throw 'FirstName is Not Matched';
     }
-    else {
-        console.log("Invalid input");
-        value = prompt("Enter valid input : ");
-        getUserInput(value, regexPattern);
-    }
-}
-let addContact = () => {
-    createContact();
-    addressbook.push(contact);
-}
-let display = () => {
-    console.log(addressbook.toString());
-}
 
-let search = () => {
-    let searchByname = prompt("Enter the first name to search ");
-    for(let i = 0; i < addressbook.length; i++) {
-        if(searchByname == addressbook[i].getFirst_name) {
-            return i;
+    get lastName(){ return this._lastName; }
+    set lastName(lastName){
+        let lNameRegExp = RegExp("^[A-Z]{1}[a-z]{2,}");
+        if(lNameRegExp.test(lastName))
+            this._lastName = lastName;
+        else throw 'LastName is Not Matched';
+    }
+
+    get address(){ return this._address; }
+    set address(address){
+        let addressRegex = RegExp('^[a-z A-z]{4,}');
+        if(addressRegex.test(address))
+            this._address = address;
+        else throw 'Address is not Matched';
+    }
+
+    get city(){ return this._city; }
+    set city(city){
+        let cityRegex = RegExp('^[a-z A-z]{4,}');
+        if(cityRegex.test(city))
+            this._city = city;
+        else throw 'City is not Matched';
+    }
+
+    get state(){ return this._state; }
+    set state(state){
+        let stateRegex = RegExp('^[a-z A-z]{4,}');
+        if(stateRegex.test(state))
+            this._state = state;
+        else throw 'State is not Matched';
+    }
+
+    get zip(){ return this._zip; }
+    set zip(zip){
+        let zipRegex = RegExp('^[1-9]{1}[0-9]{5,}$');
+        if(zipRegex.test(zip))
+            this._zip = zip;
+        else throw 'Zip is not Matched';
+    }
+
+    get phoneNumber(){ return this._phoneNumber;}
+    set phoneNumber(phoneNo){
+        let phoneRegex = new RegExp("^(\\d{2})( )([6-9]{1})(\\d{9})");
+        if(phoneRegex.test(phoneNo)){
+            this._phoneNumber = phoneNo;
+        }else{
+            throw "PhoneNumber is not Matched";
         }
     }
-}
 
-let editContact = () => {
-    let i = search();
-    let option2 = prompt("Edit 1. First name 2. Last name 3. Address 4. City 5. State 6. Zip code 7. Phone number 8. Email address ");
-    let value = prompt("Enter the data needs to be changed ");
-        switch(option2) {
-            case '1':
-                addressbook[i].setFirst_name = value;
-                break;
-            case '2':
-                addressbook[i].setLast_name = value;
-                break;
-            case '3':
-                addressbook[i].setAddress = value;
-                break;
-            case '4':
-                addressbook[i].setCity = value;
-                break;
-            case '5':
-                addressbook[i].setState = value;
-                break;
-            case '6':
-                addressbook[i].setZip = value;
-                break;
-            case '7':
-                addressbook[i].setPhone_no = value;
-                break;
-            case '8':
-                addressbook[i].setEmail= value;
-                break;
-            default:
-            console.log("Invalid option");                
+    get email(){ return this._email;}
+    set email(e){
+        let emailRegex = new RegExp("^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$");
+        if(emailRegex.test(e)){
+            this._email = e;
+        }else{
+            console.log("Email is not Matched");
         }
-}
+    }
 
-let deleteContact = () => {
-    let i = search();
-    delete addressbook[i];
-    console.log("Contact has been deleted successfully");
-}
-let countOfContacts = () => { let count = addressbook.reduce(
-    (accumulator, currentValue) => accumulator.concat(currentValue), []
-  ).filter(item => item.enabled).length;
-console.log(count+1);
-};
-
-let menu = () => {
-let option1 = prompt("Menu: 1. Add Contact 2. Search By name and edit it 3. Display 4. Search By name and delete it 5. Count of contacts 6. Exit ");
-switch (option1) {
-    case '1':
-        addContact();
-        menu();
-        break;
-    case '2':
-        editContact();
-        menu();
-        break;
-    case '3':
-        display();
-        menu();
-        break;
-    case '4':
-        deleteContact();
-        menu();
-        break; 
-    case 5: 
-        countOfContacts();
-        menu();
-        break;           
-    default:
-        console.log("Invalid option");
-        menu();    
+    toString(){
+        return "FirstName = " + this.firstName + ", LastName = " + this.lastName + ", Address = " + this.address +
+                ", City = " + this.city + ", State = " + this.state + ", Zip = " + this.zip + ", PhoneNumber = " + this.phoneNumber + ", Email = " + this.email;
     }
 }
-menu();
+
+let person = new AddressBook("Raj", "Varma", "Jsquare", "Ahemdabad", "Gujarat", "425082" , "91 8234152782", "rajvarma@gmail.com");
+console.log(person.toString());
+try{
+    person.firstName = "Jojo";
+    console.log(person.firstName);
+}catch(e){
+    console.error(e);
+}
+try{
+    person.lastName = "Will";
+    console.log(person.lastName);
+}catch(e){
+    console.error(e);
+}
+try{
+    person.address = "Psquare";
+    console.log(person.address);
+}catch(e){
+    console.error(e);
+}
+try{
+    person.city = "XYz";
+    console.log(person.city);
+}catch(e){
+    console.error(e);
+}
+try{
+    person.state = "ABc";
+    console.log(person.state);
+}catch(e){
+    console.error(e);
+}
+try{
+    person.zip = "422302";
+    console.log(person.zip);
+}catch(e){
+    console.error(e);
+}
+try{
+    person.phoneNumber = "9123457868";
+}catch(e){
+    console.error(e);
+}
+try{
+    person.email = "jojowi@gmail";
+    console.log(person.email);
+}catch(e){
+    console.log(e);
+}
+
+let person1 = new AddressBook("Mark", "Op", "Msquare", "yyz", "bbc", "443453", "91 8763235621","markop@gmail.com" );
+let person2 = new AddressBook("Sk", "Rossi", "Bind", "valo", "jod","744564", "91 9865435665", "skrossi@gmail.com");
+let addressBookArray = [];
+addressBookArray[0] = person1;
+addressBookArray[1] = person2;
+console.log(addressBookArray);
+
+
+let objIndex = addressBookArray.findIndex((obj => obj.firstName == "Raze"));
+console.log("Before Update : " + addressBookArray[objIndex]);
+addressBookArray[objIndex].city = "Rsquare";
+console.log("After Update : " + addressBookArray[objIndex]);
+
+
+let person3 = new AddressBook("Raze", "Ford", "Rsquare", "Roma", "Saina", "444763", "91 7976789654", "razeford@gmail.com" );
+addressBookArray[2] = person3;
+console.log(addressBookArray);
+let index = addressBookArray.findIndex((obj => obj.firstName == "Raze"));
+addressBookArray.splice(index, 1);
+console.log("After Deletion");
+console.log(addressBookArray);
+
+
+let count = addressBookArray.reduce((counter, _person) => counter + 1, 0);
+console.log(count);
+
+
+let person4 = new AddressBook("zoya", "Mai", "Ksquare", "Bbj", "Mora","425873", "91 8756473425", "zoyamai@gmail.com");
+if(addressBookArray.findIndex(contact => contact.firstName == person4.firstName) == -1){
+    addressBookArray[3] = person4;
+}
+else{
+    console.log("Duplicate Entry");
+}
+console.log(addressBookArray);
