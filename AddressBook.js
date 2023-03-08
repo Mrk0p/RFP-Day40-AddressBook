@@ -105,13 +105,13 @@ try{
     console.error(e);
 }
 try{
-    person.city = "XYz";
+    person.city = "Xyzs";
     console.log(person.city);
 }catch(e){
     console.error(e);
 }
 try{
-    person.state = "ABc";
+    person.state = "Abcy";
     console.log(person.state);
 }catch(e){
     console.error(e);
@@ -134,8 +134,8 @@ try{
     console.log(e);
 }
 
-let person1 = new AddressBook("Mark", "Op", "Msquare", "yyz", "bbc", "443453", "91 8763235621","markop@gmail.com" );
-let person2 = new AddressBook("Sk", "Rossi", "Bind", "valo", "jod","744564", "91 9865435665", "skrossi@gmail.com");
+let person1 = new AddressBook("Mark", "Opp", "Msquare", "Yyze", "Bbcc", "443453", "91 8763235621","markop@gmail.com" );
+let person2 = new AddressBook("Raze", "Rossi", "Bind", "Valo", "Jods","744564", "91 9865435665", "skrossi@gmail.com");
 let addressBookArray = [];
 addressBookArray[0] = person1;
 addressBookArray[1] = person2;
@@ -144,9 +144,8 @@ console.log(addressBookArray);
 
 let objIndex = addressBookArray.findIndex((obj => obj.firstName == "Raze"));
 console.log("Before Update : " + addressBookArray[objIndex]);
-addressBookArray[objIndex].city = "Rsquare";
+addressBookArray[objIndex].city = "Tera";
 console.log("After Update : " + addressBookArray[objIndex]);
-
 
 let person3 = new AddressBook("Raze", "Ford", "Rsquare", "Roma", "Saina", "444763", "91 7976789654", "razeford@gmail.com" );
 addressBookArray[2] = person3;
@@ -161,7 +160,7 @@ let count = addressBookArray.reduce((counter, _person) => counter + 1, 0);
 console.log(count);
 
 
-let person4 = new AddressBook("zoya", "Mai", "Ksquare", "Bbj", "Mora","425873", "91 8756473425", "zoyamai@gmail.com");
+let person4 = new AddressBook("Zoya", "Mai", "Ksquare", "Bbj", "Mora","425873", "91 8756473425", "zoyamai@gmail.com");
 if(addressBookArray.findIndex(contact => contact.firstName == person4.firstName) == -1){
     addressBookArray[3] = person4;
 }
@@ -169,3 +168,15 @@ else{
     console.log("Duplicate Entry");
 }
 console.log(addressBookArray);
+
+let person5 = new AddressBook("Harsh", "Kumar", "Dsquare", "Dono", "Temo", "454773", "91 7866748967", "harshk@gmail.com");
+addressBookArray[3] = person5;
+console.log(addressBookArray);
+
+let contacts = addressBookArray.filter(person => person.city == "Dono");
+console.log("Contacts from city 'Dono' are : ")
+console.log(contacts);
+
+let personFromState = addressBookArray.filter(person => person.state == "Temo");
+console.log("Contacts from State 'Temo' are : ");
+console.log(personFromState);
